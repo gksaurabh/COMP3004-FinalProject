@@ -1,0 +1,13 @@
+COMP 3004 Progress Report
+_________________________
+
+
+-----------------------------------------------------------------------------------------------
+November 21, 2023 - Meeting
+
+- All four memeber discussed in detail about the Use cases and came to a a general consensus of what needs to be done 
+- Jigar will be working on finalizing the use cases for the exceptions and main usage scenarios before Thursday's meeting. Also will draft a rough UML diagram.
+- Rhythm will be working on the header files and rough diagram for UML diagram and case diagram
+- Sanay will be working on the Uml Diagrams, Case diagrams and help wit header files. 
+- Saurabh will be working on the Uml diagrams and header files and github repo.
+-----------------------------------------------------------------------------------------------
