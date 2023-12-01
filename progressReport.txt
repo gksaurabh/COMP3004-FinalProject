@@ -1,6 +1,13 @@
 COMP 3004 Progress Report
 _________________________
-
+November 30th - Meeting
+- mainWindow.cpp/mainWindow.h (includes both GUI + Control Logic + testing scenario buttons)
+- person.cpp/person.h (a user/patient object within this class)
+- realtimeCPRFeedback.cpp/realtimeCPRFeedback.h. (analyze the heartrate data and perform analysis/communicate with control system to say what to do)
+- battery.cpp/baterry.h
+- display.cpp/display.h
+- audio.cpp/audio.h
+- selfTest.cpp/selfTest.h
 
 -----------------------------------------------------------------------------------------------
 November 21, 2023 - Meeting
