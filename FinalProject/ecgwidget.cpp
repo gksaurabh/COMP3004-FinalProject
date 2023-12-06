@@ -7,7 +7,7 @@ ECGWidget::ECGWidget(QWidget *parent)
     // Set up a timer to update the ECG waveform
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &ECGWidget::updateECG);
-    timer->start(300); // Update every 50 milliseconds
+    timer->start(100); // Update every 50 milliseconds
 }
 
 void ECGWidget::setECGData(const QList<int> &data) {
