@@ -1,5 +1,23 @@
 COMP 3004 Progress Report
 _________________________
+Dec 5th Meeting (In-Person)
+Implementing the functionality for various classes:
+  - Buttons that are needed to be added:
+    - Self-check Failed (Test cases) 
+        - Electrode Pad button
+        - Low Battery Button
+        - Software Check Button
+        - Hardware Check Button 
+    - Heart Rate Variability Buttons 
+        - Normal (default)
+        - Asystole
+        - Ventricular Fribillation
+        - Ventricular Tachycardia 
+        - Flatline
+    - Child Button 
+_________________________
+Dec 4th Meeting
+_________________________
 November 30th - Meeting
 - mainWindow.cpp/mainWindow.h (includes both GUI + Control Logic + testing scenario buttons)
 - person.cpp/person.h (a user/patient object within this class)
