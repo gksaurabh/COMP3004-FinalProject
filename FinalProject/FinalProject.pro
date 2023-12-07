@@ -14,6 +14,7 @@ SOURCES += \
     data.cpp \
     display.cpp \
     ecgwidget.cpp \
+    ledwidget.cpp \
     main.cpp \
     mainwindow.cpp \
     person.cpp \
@@ -26,6 +27,7 @@ HEADERS += \
     data.h \
     display.h \
     ecgwidget.h \
+    ledwidget.h \
     mainwindow.h \
     person.h \
     realtimecprfeedback.h \

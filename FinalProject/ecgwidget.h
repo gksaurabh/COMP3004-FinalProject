@@ -6,7 +6,7 @@
 class QTimer;
 
 class ECGWidget : public QWidget {
-    Q_OBJECT
+
 
 public:
     ECGWidget(QWidget *parent = nullptr);
