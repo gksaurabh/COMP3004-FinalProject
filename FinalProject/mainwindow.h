@@ -26,7 +26,19 @@ private slots:
 
     void on_flatlineECG_clicked();
 
-    void on_vtECG_2_clicked();
+    void on_resetECG_clicked();
+
+    void on_asystoleECG_clicked();
+
+    void on_electrode_ST_toggled(bool checked);
+
+    void on_battery_ST_toggled(bool checked);
+
+    void on_software_ST_toggled(bool checked);
+
+    void on_hardware_ST_toggled(bool checked);
+
+    void on_toggleLEDs_toggled(bool checked);
 
 private:
     Ui::MainWindow *ui;

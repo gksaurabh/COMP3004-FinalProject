@@ -55,71 +55,6 @@
       </rect>
      </property>
     </widget>
-    <widget class="QRadioButton" name="radioButton">
-     <property name="geometry">
-      <rect>
-       <x>210</x>
-       <y>290</y>
-       <width>16</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QRadioButton" name="radioButton_2">
-     <property name="geometry">
-      <rect>
-       <x>310</x>
-       <y>170</y>
-       <width>31</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QRadioButton" name="radioButton_3">
-     <property name="geometry">
-      <rect>
-       <x>470</x>
-       <y>330</y>
-       <width>16</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QRadioButton" name="radioButton_4">
-     <property name="geometry">
-      <rect>
-       <x>470</x>
-       <y>450</y>
-       <width>16</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QRadioButton" name="radioButton_5">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>460</y>
-       <width>16</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
     <widget class="QPushButton" name="pushButton_6">
      <property name="geometry">
       <rect>
@@ -133,16 +68,65 @@
       <string>ON/OFF</string>
      </property>
     </widget>
-    <widget class="QWidget" name="verticalLayoutWidget_2">
+    <widget class="LedWidget" name="callLight" native="true">
      <property name="geometry">
       <rect>
-       <x>330</x>
-       <y>360</y>
-       <width>41</width>
+       <x>303</x>
+       <y>173</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="heartLED"/>
+    </widget>
+    <widget class="LedWidget" name="padLight" native="true">
+     <property name="geometry">
+      <rect>
+       <x>463</x>
+       <y>333</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="LedWidget" name="okLight" native="true">
+     <property name="geometry">
+      <rect>
+       <x>206</x>
+       <y>289</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="LedWidget" name="shockLight" native="true">
+     <property name="geometry">
+      <rect>
+       <x>465</x>
+       <y>448</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="LedWidget" name="cprLight" native="true">
+     <property name="geometry">
+      <rect>
+       <x>223</x>
+       <y>464</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="LedWidget" name="heartLight" native="true">
+     <property name="geometry">
+      <rect>
+       <x>335</x>
+       <y>361</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
@@ -221,7 +205,7 @@
        <string>Flatline</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="vtECG_2">
+     <widget class="QPushButton" name="asystoleECG">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -234,7 +218,7 @@
        <string>Asystole</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="flatlineECG_2">
+     <widget class="QPushButton" name="resetECG">
       <property name="geometry">
        <rect>
         <x>170</x>
@@ -244,7 +228,7 @@
        </rect>
       </property>
       <property name="text">
-       <string/>
+       <string>Reset</string>
       </property>
      </widget>
     </widget>
@@ -253,64 +237,52 @@
       <rect>
        <x>10</x>
        <y>70</y>
-       <width>341</width>
+       <width>351</width>
        <height>81</height>
       </rect>
      </property>
      <property name="title">
       <string>Self-Check Testing</string>
      </property>
-     <widget class="QPushButton" name="pushButton_12">
+     <widget class="QWidget" name="">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>20</y>
-        <width>171</width>
-        <height>25</height>
+        <width>351</width>
+        <height>54</height>
        </rect>
       </property>
-      <property name="text">
-       <string>Battery Check Failed</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_13">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>50</y>
-        <width>171</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Software Check Failed</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_14">
-      <property name="geometry">
-       <rect>
-        <x>170</x>
-        <y>20</y>
-        <width>171</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Electrodes Check Failed</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_15">
-      <property name="geometry">
-       <rect>
-        <x>170</x>
-        <y>50</y>
-        <width>171</width>
-        <height>25</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Hardware Check Failed</string>
-      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="battery_ST">
+         <property name="text">
+          <string>Battery Check Failed</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QCheckBox" name="electrode_ST">
+         <property name="text">
+          <string>Electrode Pad Failed</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QCheckBox" name="software_ST">
+         <property name="text">
+          <string>Software Check Failed</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QCheckBox" name="hardware_ST">
+         <property name="text">
+          <string>Hardware Check Failed</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
     <widget class="QPushButton" name="pushButton">
@@ -346,7 +318,7 @@
       <x>680</x>
       <y>290</y>
       <width>371</width>
-      <height>141</height>
+      <height>181</height>
      </rect>
     </property>
     <property name="title">
@@ -363,6 +335,44 @@
      </property>
      <layout class="QVBoxLayout" name="ecgLayout"/>
     </widget>
+    <widget class="QLabel" name="ecgGraphLabel">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>150</y>
+       <width>211</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>DejaVu Sans</family>
+       <pointsize>13</pointsize>
+      </font>
+     </property>
+     <property name="autoFillBackground">
+      <bool>true</bool>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QCheckBox" name="toggleLEDs">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>520</y>
+      <width>90</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Toggle LEDs</string>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -377,6 +387,14 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>LedWidget</class>
+   <extends>QWidget</extends>
+   <header>ledwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

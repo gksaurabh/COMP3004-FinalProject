@@ -22,16 +22,30 @@ MainWindow::MainWindow(QWidget *parent)
     QList<int> VT = {
      30,30,30,30,35,40,45,50,55,60,65,70,75,80,80,80,80,75,70,65,60,55,50,45,40,35,30,30,30,30,35,40,45,50,55,60,65,70,75,80,80,80,80,75,70,65,60,55,50,45,40,35,30,30,30,30,35,40,45,50,55,60,65,70,75,80,80,80,80,75,70,65,60,55,50,45,40,35,30,
     };
+
+    //set selfcheck toggle to green by default
+    ui->electrode_ST->setStyleSheet("background-color:green");
+    ui->battery_ST->setStyleSheet("background-color:green");
+    ui->software_ST->setStyleSheet("background-color:green");
+    ui->hardware_ST->setStyleSheet("background-color:green");
+
+
     // Create and add the ECG widget to the main window
 
-    ecgWidget = new ECGWidget(this);
-    ecgWidget->setECGData(VT);  // Set the ECG data
-    ui->ecgLayout->addWidget(ecgWidget);
+//    ecgWidget = new ECGWidget(this);
+//    ecgWidget->setECGData(VT);  // Set the ECG data
+//    ui->ecgLayout->addWidget(ecgWidget);
 
     // Set up other components, menus, etc., as needed
-    LedWidget *ledLight = new LedWidget(this);
-    ui->heartLED->addWidget(ledLight);
 
+    //set up LED lights for different stages
+    QColor black = Qt::black;
+    ui->callLight->setColor(black);
+    ui->okLight->setColor(black);
+    ui->heartLight->setColor(black);
+    ui->cprLight->setColor(black);
+    ui->padLight->setColor(black);
+    ui->shockLight->setColor(black);
 
 
 }
@@ -70,11 +84,12 @@ void MainWindow::on_normalECG_clicked()
     ecgWidget = new ECGWidget(this);
     ecgWidget->setECGData(normalEcgPattern);  // Set the ECG data
     ui->ecgLayout->addWidget(ecgWidget);
+    ui->ecgGraphLabel->setText("Normal Sinus Rhythm");
 
 }
 
 
-
+//replace ecgLayout with ventricular fribillation ECG
 void MainWindow::on_vfECG_clicked()
 {
     QList<int> VF = {
@@ -85,9 +100,10 @@ void MainWindow::on_vfECG_clicked()
     ecgWidget = new ECGWidget(this);
     ecgWidget->setECGData(VF);  // Set the ECG data
     ui->ecgLayout->addWidget(ecgWidget);
+    ui->ecgGraphLabel->setText("Ventricular Fribillation");
 }
 
-
+//replace ecgLayout with ventricular tachycardia ECG
 void MainWindow::on_vtECG_clicked()
 {
     QList<int> VT = {
@@ -98,9 +114,10 @@ void MainWindow::on_vtECG_clicked()
     ecgWidget = new ECGWidget(this);
     ecgWidget->setECGData(VT);  // Set the ECG data
     ui->ecgLayout->addWidget(ecgWidget);
+    ui->ecgGraphLabel->setText("Ventricular Tachycardia");
 }
 
-
+//replace ecgLayout with flatline ECG
 void MainWindow::on_flatlineECG_clicked()
 {
     QList<int> flatlineEcgPattern = {
@@ -112,10 +129,11 @@ void MainWindow::on_flatlineECG_clicked()
     ecgWidget = new ECGWidget(this);
     ecgWidget->setECGData(flatlineEcgPattern);  // Set the ECG data
     ui->ecgLayout->addWidget(ecgWidget);
+    ui->ecgGraphLabel->setText("Flatline");
 }
 
-
-void MainWindow::on_vtECG_2_clicked()
+//replace ecgLayout with Asystole ECG
+void MainWindow::on_asystoleECG_clicked()
 {
     QList<int> AsystoleEcgPattern = {
       50,55,50,50,55,52,50,50,55,50,50,55,52,50,50,45,50,55,50,50,55,52,50,50,55,50,50,55,52,50
@@ -127,5 +145,83 @@ void MainWindow::on_vtECG_2_clicked()
     ecgWidget = new ECGWidget(this);
     ecgWidget->setECGData(AsystoleEcgPattern);  // Set the ECG data
     ui->ecgLayout->addWidget(ecgWidget);
+    ui->ecgGraphLabel->setText("Asystole");
+}
+
+void MainWindow::on_resetECG_clicked()
+{
+
+    clearLayout(ui->ecgLayout);
+    ui->ecgGraphLabel->setText("");
+
+}
+
+
+
+//If electrode fail self check test is toggled change colour
+void MainWindow::on_electrode_ST_toggled(bool checked)
+{
+    if (checked == true){
+        ui->electrode_ST->setStyleSheet("background-color:red;");
+    }else{
+        ui->electrode_ST->setStyleSheet("background-color:green;");
+    }
+}
+
+
+//If battery fail self check test is toggled change colour
+void MainWindow::on_battery_ST_toggled(bool checked)
+{
+    if (checked == true){
+        ui->battery_ST->setStyleSheet("background-color:red;");
+    }else{
+        ui->battery_ST->setStyleSheet("background-color:green;");
+    }
+}
+
+//If software fail self check test is toggled change colour
+void MainWindow::on_software_ST_toggled(bool checked)
+{
+    if (checked == true){
+        ui->software_ST->setStyleSheet("background-color:red;");
+    }else{
+        ui->software_ST->setStyleSheet("background-color:green;");
+    }
+}
+//If hardware fail self check test is toggled change colour
+
+void MainWindow::on_hardware_ST_toggled(bool checked)
+{
+
+    if (checked == true){
+        ui->hardware_ST->setStyleSheet("background-color:red;");
+    }else{
+        ui->hardware_ST->setStyleSheet("background-color:green;");
+    }
+}
+
+
+void MainWindow::on_toggleLEDs_toggled(bool checked)
+{
+
+    QColor red = Qt::red;
+    QColor black = Qt::black;
+    if(checked == true){
+        ui->callLight->setColor(red);
+        ui->okLight->setColor(red);
+        ui->heartLight->setColor(red);
+        ui->cprLight->setColor(red);
+        ui->padLight->setColor(red);
+        ui->shockLight->setColor(red);
+
+    }else{
+        ui->callLight->setColor(black);
+        ui->okLight->setColor(black);
+        ui->heartLight->setColor(black);
+        ui->cprLight->setColor(black);
+        ui->padLight->setColor(black);
+        ui->shockLight->setColor(black);
+    }
+
 }
 
