@@ -2,6 +2,7 @@
 #include "ecgwidget.h"  // Include the ECGWidget header file
 #include "ledwidget.h"
 #include "ui_mainwindow.h"
+#include "selftest.h"
 #include <QGraphicsProxyWidget>
 #include <QVBoxLayout>
 #include <QGraphicsView>
@@ -22,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent)
     QList<int> VT = {
      30,30,30,30,35,40,45,50,55,60,65,70,75,80,80,80,80,75,70,65,60,55,50,45,40,35,30,30,30,30,35,40,45,50,55,60,65,70,75,80,80,80,80,75,70,65,60,55,50,45,40,35,30,30,30,30,35,40,45,50,55,60,65,70,75,80,80,80,80,75,70,65,60,55,50,45,40,35,30,
     };
+
+    selfTestModule = new SelfTest();
 
     //set selfcheck toggle to green by default
     ui->electrode_ST->setStyleSheet("background-color:green");
@@ -46,6 +49,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->cprLight->setColor(black);
     ui->padLight->setColor(black);
     ui->shockLight->setColor(black);
+    ui->selfTestCheckLight->setColor(black);
+    ui->selfTestCheckLight->setFixedSize(100,50);
 
 
 }
@@ -158,14 +163,26 @@ void MainWindow::on_resetECG_clicked()
 
 
 
-//If electrode fail self check test is toggled change colour
+//If electrode fail self check test is toggled change colour, perform self test.
 void MainWindow::on_electrode_ST_toggled(bool checked)
 {
+    //set selftest variables status and perform self test, then change self test led colour
     if (checked == true){
         ui->electrode_ST->setStyleSheet("background-color:red;");
+        selfTestModule->setElectrodeStatus(false);
     }else{
         ui->electrode_ST->setStyleSheet("background-color:green;");
+        selfTestModule->setElectrodeStatus(true);
     }
+
+    if(selfTestModule->performSelfTest()==true){
+        ui->selfTestCheckLight->setColor(Qt::green);
+        ui->label_display->setText("Self Test SUCCESSFUL");
+    }else{
+        ui->selfTestCheckLight->setColor(Qt::red);
+        ui->label_display->setText("Self Test FAILED");
+    }
+
 }
 
 
@@ -174,8 +191,18 @@ void MainWindow::on_battery_ST_toggled(bool checked)
 {
     if (checked == true){
         ui->battery_ST->setStyleSheet("background-color:red;");
+        selfTestModule->setBatteryStatus(false);
     }else{
         ui->battery_ST->setStyleSheet("background-color:green;");
+        selfTestModule->setBatteryStatus(true);
+    }
+
+    if(selfTestModule->performSelfTest()==true){
+        ui->selfTestCheckLight->setColor(Qt::green);
+        ui->label_display->setText("Self Test SUCCESSFUL");
+    }else{
+        ui->selfTestCheckLight->setColor(Qt::red);
+        ui->label_display->setText("Self Test FAILED");
     }
 }
 
@@ -184,8 +211,18 @@ void MainWindow::on_software_ST_toggled(bool checked)
 {
     if (checked == true){
         ui->software_ST->setStyleSheet("background-color:red;");
+        selfTestModule->setSoftwareStatus(false);
     }else{
         ui->software_ST->setStyleSheet("background-color:green;");
+        selfTestModule->setSoftwareStatus(true);
+    }
+
+    if(selfTestModule->performSelfTest()==true){
+        ui->selfTestCheckLight->setColor(Qt::green);
+        ui->label_display->setText("Self Test SUCCESSFUL");
+    }else{
+        ui->selfTestCheckLight->setColor(Qt::red);
+        ui->label_display->setText("Self Test FAILED");
     }
 }
 //If hardware fail self check test is toggled change colour
@@ -195,8 +232,18 @@ void MainWindow::on_hardware_ST_toggled(bool checked)
 
     if (checked == true){
         ui->hardware_ST->setStyleSheet("background-color:red;");
+        selfTestModule->setHardwareStatus(false);
     }else{
         ui->hardware_ST->setStyleSheet("background-color:green;");
+        selfTestModule->setHardwareStatus(true);
+    }
+
+    if(selfTestModule->performSelfTest()==true){
+        ui->selfTestCheckLight->setColor(Qt::green);
+        ui->label_display->setText("Self Test SUCCESSFUL");
+    }else{
+        ui->selfTestCheckLight->setColor(Qt::red);
+        ui->label_display->setText("Self Test FAILED");
     }
 }
 
@@ -224,4 +271,5 @@ void MainWindow::on_toggleLEDs_toggled(bool checked)
     }
 
 }
+
 

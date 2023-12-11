@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "selftest.h"
+
 #include <QMainWindow>
 #include <QGraphicsScene>
 
@@ -44,6 +46,8 @@ private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
     ECGWidget *ecgWidget;  // Pointer to the ECG widget
+    SelfTest *selfTestModule; // Pointer to our Self Test module
+
 
 };
 

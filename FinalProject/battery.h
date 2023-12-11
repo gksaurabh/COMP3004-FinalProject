@@ -1,5 +1,7 @@
 #ifndef BATTERY_H
 #define BATTERY_H
+#include "selftest.h"
+
 
 
 class Battery

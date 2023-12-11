@@ -10,6 +10,7 @@ class LedWidget : public QWidget {
 public:
     explicit LedWidget(QWidget *parent = nullptr);
     void setColor(const QColor& color);
+    void setSize(int x, int y);
 
 protected:
     void paintEvent(QPaintEvent *event) override;

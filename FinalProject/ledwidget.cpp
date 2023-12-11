@@ -11,6 +11,7 @@ void LedWidget::setColor(const QColor& color) {
     update(); // Trigger a repaint
 }
 
+
 void LedWidget::paintEvent(QPaintEvent *event) {
     Q_UNUSED(event);
 
