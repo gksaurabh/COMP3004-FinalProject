@@ -3,14 +3,20 @@
 #include "ledwidget.h"
 #include "ui_mainwindow.h"
 #include "selftest.h"
+
 #include <QGraphicsProxyWidget>
 #include <QVBoxLayout>
 #include <QGraphicsView>
+#include <QTimer>
+//#include <string>
+//using namespace std;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow) {
     // Set up your main window components and layout as needed
     ui->setupUi(this);
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()),this, SLOT(runAED()));
     // Define a set of points representing a normal heart ECG pattern
 
     QList<int> flatlineEcgPattern = {
@@ -273,3 +279,82 @@ void MainWindow::on_toggleLEDs_toggled(bool checked)
 }
 
 
+
+void MainWindow::on_onOffButton_toggled(bool checked)
+{
+
+    if(checked == true){
+        runAED();
+    }
+
+
+}
+
+void MainWindow::runAED()
+{
+    QString ecgRhythm = ui->ecgGraphLabel->text();
+    ui->selfTestCheckLight->setColor(Qt::black);
+    qDebug() <<  ui->ecgGraphLabel->text();
+    qDebug() << ecgRhythm;
+    if(ecgRhythm.compare("Normal Sinus Rhythm") == 0){
+        ui->label_display->setText("AED Machine On");
+        delay(5);
+        ui->label_display->setText("Performing Self Check");
+        delay(5);
+        if(performSelfCheck() == true){
+            ui->label_display->setText("Self Check PASSED");
+            delay(5);
+            ui->label_display->setText("Check patient");
+            ui->okLight->setColor(Qt::red);
+            delay(10);
+            ui->okLight->setColor(Qt::black);
+            ui->label_display->setText("Call 911");
+            ui->callLight->setColor(Qt::red);
+            delay(10);
+            ui->callLight->setColor(Qt::black);
+            ui->label_display->setText("Place Electrode Pads");
+            ui->padLight->setColor(Qt::red);
+            delay(10);
+            ui->padLight->setColor(Qt::black);
+            ui->label_display->setText("Analyzing heartbeat");
+            ui->shockLight->setColor(Qt::red);
+            delay(10);
+            ui->shockLight->setColor(Qt::black);
+            ui->label_display->setText("Patient is OK, Normal Rhtyhm");
+            delay(10);
+            ui->label_display->setText("NO SHOCK and NO CPR");
+            delay(10);
+            ui->label_display->setText("Wait for Paramedics");
+
+        }else{
+            ui->label_display->setText("Self Test FAILED, Call 911");
+        }
+
+
+    }
+}
+
+void::MainWindow::delay(int seconds)
+{
+    QTime dieTime= QTime::currentTime().addSecs(seconds);
+    while (QTime::currentTime() < dieTime)
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
+}
+
+bool MainWindow::performSelfCheck()
+{
+    bool hardware = ui->hardware_ST->isChecked();
+    bool software = ui->software_ST->isChecked();
+    bool battery = ui->battery_ST->isChecked();
+    bool electrode = ui->electrode_ST->isChecked();
+
+    if((hardware == false) && (software == false) && (battery == false) && (electrode == false)){
+        ui->selfTestCheckLight->setColor(Qt::green);
+        return true;
+    }
+    else{
+        ui->selfTestCheckLight->setColor(Qt::red);
+        return false;
+    }
+}

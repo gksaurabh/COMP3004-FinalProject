@@ -5,6 +5,9 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QTimer>
+#include <QDebug>
+#include <QTime>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,6 +21,7 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
 
 private slots:
     void on_normalECG_clicked();
@@ -42,12 +46,17 @@ private slots:
 
     void on_toggleLEDs_toggled(bool checked);
 
+    void on_onOffButton_toggled(bool checked);
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
     ECGWidget *ecgWidget;  // Pointer to the ECG widget
     SelfTest *selfTestModule; // Pointer to our Self Test module
-
+    QTimer *timer;
+    void runAED();
+    void delay(int seconds);
+    bool performSelfCheck();
 
 };
 
