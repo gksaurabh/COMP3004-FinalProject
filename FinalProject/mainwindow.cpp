@@ -16,7 +16,12 @@ MainWindow::MainWindow(QWidget *parent)
     // Set up your main window components and layout as needed
     ui->setupUi(this);
     timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()),this, SLOT(runAED()));
+    connect(timer, SIGNAL(timeout()),this, SLOT(changeTimer()));
+
+    ui->timerDisplay->setStyleSheet("background-color: black");
+    ui->shockDisplay->setStyleSheet("background-color: black");
+    ui->cpr_count_Display->setStyleSheet("background-color: black");
+    ui->batteryDisplay->setStyleSheet("background-color: black");
     // Define a set of points representing a normal heart ECG pattern
 
     QList<int> flatlineEcgPattern = {
@@ -37,6 +42,12 @@ MainWindow::MainWindow(QWidget *parent)
     ui->battery_ST->setStyleSheet("background-color:green");
     ui->software_ST->setStyleSheet("background-color:green");
     ui->hardware_ST->setStyleSheet("background-color:green");
+
+
+    //disable buttons not needed.
+    //ui->analyzeHR_button->setEnabled(false);
+    //ui->applyPad_Button->setEnabled(false);
+    //ui->pushCPR_Button->setEnabled(false);
 
 
     // Create and add the ECG widget to the main window
@@ -111,7 +122,7 @@ void MainWindow::on_vfECG_clicked()
     ecgWidget = new ECGWidget(this);
     ecgWidget->setECGData(VF);  // Set the ECG data
     ui->ecgLayout->addWidget(ecgWidget);
-    ui->ecgGraphLabel->setText("Ventricular Fribillation");
+    ui->ecgGraphLabel->setText("Ventricular Fribrillation");
 }
 
 //replace ecgLayout with ventricular tachycardia ECG
@@ -290,48 +301,48 @@ void MainWindow::on_onOffButton_toggled(bool checked)
 
 }
 
+void MainWindow::changeTimer()
+{
+    lcdTimer+=1;
+    ui->timerDisplay->display(lcdTimer);
+}
+
 void MainWindow::runAED()
 {
     QString ecgRhythm = ui->ecgGraphLabel->text();
     ui->selfTestCheckLight->setColor(Qt::black);
+    timer->start(1000);
+
     qDebug() <<  ui->ecgGraphLabel->text();
     qDebug() << ecgRhythm;
-    if(ecgRhythm.compare("Normal Sinus Rhythm") == 0){
-        ui->label_display->setText("AED Machine On");
+
+
+    ui->label_display->setText("AED Machine On");
+    delay(5);
+    ui->label_display->setText("Performing Self Check");
+    delay(5);
+
+    if(performSelfCheck() == true){
+        ui->label_display->setText("Self Check PASSED");
         delay(5);
-        ui->label_display->setText("Performing Self Check");
-        delay(5);
-        if(performSelfCheck() == true){
-            ui->label_display->setText("Self Check PASSED");
-            delay(5);
-            ui->label_display->setText("Check patient");
-            ui->okLight->setColor(Qt::red);
-            delay(10);
-            ui->okLight->setColor(Qt::black);
-            ui->label_display->setText("Call 911");
-            ui->callLight->setColor(Qt::red);
-            delay(10);
-            ui->callLight->setColor(Qt::black);
-            ui->label_display->setText("Place Electrode Pads");
-            ui->padLight->setColor(Qt::red);
-            delay(10);
-            ui->padLight->setColor(Qt::black);
-            ui->label_display->setText("Analyzing heartbeat");
-            ui->shockLight->setColor(Qt::red);
-            delay(10);
-            ui->shockLight->setColor(Qt::black);
-            ui->label_display->setText("Patient is OK, Normal Rhtyhm");
-            delay(10);
-            ui->label_display->setText("NO SHOCK and NO CPR");
-            delay(10);
-            ui->label_display->setText("Wait for Paramedics");
-
-        }else{
-            ui->label_display->setText("Self Test FAILED, Call 911");
-        }
+        ui->label_display->setText("Check patient");
+        ui->okLight->setColor(Qt::red);
+        delay(10);
+        ui->okLight->setColor(Qt::black);
+        ui->label_display->setText("Call 911");
+        ui->callLight->setColor(Qt::red);
+        delay(10);
+        ui->callLight->setColor(Qt::black);
+        ui->label_display->setText("Place Electrode Pads");
+        ui->padLight->setColor(Qt::red);
+        ui->applyPad_Button->setEnabled(true);
+        delay(10);
 
 
+    }else{
+        ui->label_display->setText("Self Test FAILED, Call 911");
     }
+
 }
 
 void::MainWindow::delay(int seconds)
@@ -358,3 +369,169 @@ bool MainWindow::performSelfCheck()
         return false;
     }
 }
+
+void MainWindow::shockPatient(int cycles)
+{
+    for(int i = 0; i < cycles; i++){
+        delay(10);
+        ui->label_display->setText("SHOCKING PATIENT");
+        shockCount+=1;
+        ui->shockDisplay->display(shockCount);
+        delay(5);
+        ui->label_display->setText("Analyzing Heart Rate");
+        delay(5);
+        ui->label_display->setText("Please stay back SHOCK NEEDED");
+
+    }
+}
+
+void MainWindow::on_applyPad_Button_clicked()
+{
+    //set LED lights to the correct stage.
+    QColor black = Qt::black;
+    QColor red = Qt::red;
+    ui->callLight->setColor(black);
+    ui->okLight->setColor(black);
+    ui->heartLight->setColor(black);
+    ui->cprLight->setColor(black);
+    ui->padLight->setColor(red);
+    ui->shockLight->setColor(black);
+
+    QString applySelection = ui->ddlist_applyPad->currentText();
+    if(applySelection.compare("Proper Application") == 0){
+
+        //move lights to next stage
+        ui->padLight->setColor(black);
+        ui->shockLight->setColor(red);
+
+        ui->label_display->setText("Please Stand back");
+        delay(10);
+        ui->label_display->setText("(Select HR then) Press Analyze");
+        ui->analyzeHR_button->setEnabled(true);
+    }else{
+        ui->label_display->setText("Apply Pads Properly");
+    }
+
+}
+
+
+void MainWindow::on_analyzeHR_button_clicked()
+{
+    //set LED lights to the correct stage.
+    QColor black = Qt::black;
+    QColor red = Qt::red;
+    ui->callLight->setColor(black);
+    ui->okLight->setColor(black);
+    ui->heartLight->setColor(red);
+    ui->cprLight->setColor(black);
+    ui->padLight->setColor(black);
+    ui->shockLight->setColor(black);
+
+    ui->applyPad_Button->setEnabled(false);
+
+    ui->label_display->setText("Analyzing heartbeat");
+
+
+    QString applySelection = ui->ddlist_applyPad->currentText();
+    if(applySelection.compare("Proper Application") == 0){
+        QString ecgRhythm = ui->ecgGraphLabel->text();
+
+        if(ecgRhythm.compare("Normal Sinus Rhythm") == 0){
+            ui->shockLight->setColor(black);
+            delay(10);
+            ui->label_display->setText("Patient is OK, Normal Rhtyhm");
+            delay(10);
+            ui->label_display->setText("NO SHOCK and NO CPR");
+            delay(10);
+            ui->label_display->setText("Wait for Paramedics");
+        }
+        else if(ecgRhythm.compare("Ventricular Fribrillation") == 0){
+             delay(10);
+             ui->heartLight->setColor(black);
+             ui->shockLight->setColor(red);
+
+             ui->label_display->setText("Patient is in Fibirillation");
+             delay(10);
+             ui->label_display->setText("Please stand back SHOCK NEEDED");
+             shockPatient(4);
+             ui->label_display->setText("Normal Rhythm Detected");
+             on_normalECG_clicked();
+             delay(10);
+             ui->label_display->setText("Wait for Paramedics");
+
+
+        }
+        else if(ecgRhythm.compare("Ventricular Tachycardia") == 0){
+            delay(10);
+            ui->heartLight->setColor(black);
+            ui->shockLight->setColor(red);
+
+            ui->label_display->setText("Patient is in Tachycardia");
+            delay(10);
+            ui->label_display->setText("Please stand back SHOCK NEEDED");
+            shockPatient(2);
+            ui->label_display->setText("Normal Rhythm Detected");
+            on_normalECG_clicked();
+            delay(10);
+            ui->label_display->setText("Wait for Paramedics");
+            ui->heartLight->setColor(red);
+            ui->shockLight->setColor(black);
+
+
+        }
+        else if(ecgRhythm.compare("Flatline") == 0){
+            delay(10);
+            ui->heartLight->setColor(black);
+            ui->cprLight->setColor(red);
+
+            ui->label_display->setText("PERFORM CPR");
+            ui->pushCPR_Button->setEnabled(true);
+
+
+        }
+        else if(ecgRhythm.compare("Asystole") == 0){
+            delay(10);
+            ui->heartLight->setColor(black);
+            ui->shockLight->setColor(red);
+
+
+            ui->label_display->setText("PERFORM CPR");
+            ui->pushCPR_Button->setEnabled(true);
+        }
+    }
+}
+
+
+void MainWindow::on_pushCPR_Button_clicked()
+{
+    int compressionDepth = ui->ddlist_cprDepth->currentIndex();
+    if(compressionDepth < 5){
+        ui->label_display->setText("PUSH HARDER (at least 5cm depth)");
+    }
+    else{
+        ui->label_display->setText("GOOD PUSH");
+        pushCount+=1;
+        ui->cpr_count_Display->display(pushCount);
+        if(pushCount%30 == 0){
+            ui->label_display->setText("Perform Mouth to Mouth. 2 Breaths");
+            ui->pushCPR_Button->setEnabled(false);
+            delay(10);
+            ui->label_display->setText("Repeat if patient is not revived.");
+            ui->pushCPR_Button->setEnabled(true);
+        }
+        else{
+            if(pushCount == 42){
+                ui->pushCPR_Button->setEnabled(false);
+                on_normalECG_clicked();
+                ui->label_display->setText("Normal Rhythm Detected");
+                delay(10);
+                ui->label_display->setText("Wait for Paramedics");
+                ui->heartLight->setColor(Qt::red);
+                ui->cprLight->setColor(Qt::black);
+
+            }
+        }
+    }
+
+}
+

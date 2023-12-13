@@ -23,6 +23,7 @@ public:
     ~MainWindow();
 
 
+
 private slots:
     void on_normalECG_clicked();
 
@@ -47,6 +48,15 @@ private slots:
     void on_toggleLEDs_toggled(bool checked);
 
     void on_onOffButton_toggled(bool checked);
+    void changeTimer();
+
+
+
+    void on_applyPad_Button_clicked();
+
+    void on_analyzeHR_button_clicked();
+
+    void on_pushCPR_Button_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -54,9 +64,15 @@ private:
     ECGWidget *ecgWidget;  // Pointer to the ECG widget
     SelfTest *selfTestModule; // Pointer to our Self Test module
     QTimer *timer;
+    int lcdTimer = 0;
+    int pushCount = 0;
+    int shockCount = 0;
+
     void runAED();
     void delay(int seconds);
     bool performSelfCheck();
+    void shockPatient(int cycles);
+
 
 };
 
