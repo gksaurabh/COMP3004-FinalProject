@@ -45,9 +45,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     //disable buttons not needed.
-    //ui->analyzeHR_button->setEnabled(false);
-    //ui->applyPad_Button->setEnabled(false);
-    //ui->pushCPR_Button->setEnabled(false);
+    ui->analyzeHR_button->setEnabled(false);
+    ui->applyPad_Button->setEnabled(false);
+    ui->pushCPR_Button->setEnabled(false);
 
 
     // Create and add the ECG widget to the main window
