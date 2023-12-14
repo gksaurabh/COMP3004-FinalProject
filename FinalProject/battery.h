@@ -7,7 +7,7 @@
 class Battery
 {
 private:
-    int batteryPercentage;
+    int batteryPercentage = 100;
     bool status;
 public:
     Battery();

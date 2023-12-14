@@ -47,7 +47,7 @@ private slots:
 
     void on_toggleLEDs_toggled(bool checked);
 
-    void on_onOffButton_toggled(bool checked);
+    void on_onButton_toggled(bool checked);
     void changeTimer();
 
 
@@ -58,12 +58,21 @@ private slots:
 
     void on_pushCPR_Button_clicked();
 
+    void on_OffButton_toggled(bool checked);
+
+    void on_adultScenario_button_clicked();
+
+    void on_childScenario_Button_clicked();
+
+    void on_replaceBattery_button_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
     ECGWidget *ecgWidget;  // Pointer to the ECG widget
     SelfTest *selfTestModule; // Pointer to our Self Test module
     QTimer *timer;
+    Battery *battery = new Battery();
     int lcdTimer = 0;
     int pushCount = 0;
     int shockCount = 0;
@@ -72,6 +81,8 @@ private:
     void delay(int seconds);
     bool performSelfCheck();
     void shockPatient(int cycles);
+    void reset();
+    void depleteBattery(int val);
 
 
 };
