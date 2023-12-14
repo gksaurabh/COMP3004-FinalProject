@@ -28,35 +28,34 @@
         - Project Planning
            
 # Folder Structure:
-FinalProject/
-    │
-    ├── FinalProject.pro
-    ├── FinalProject.pro.user
-    ├── audio.cpp
-    ├── audio.h
-    ├── battery.cpp
-    ├── battery.h
-    ├── data.cpp
-    ├── data.h
-    ├── display.cpp
-    ├── display.h
-    ├── ecgwidget.cpp
-    ├── ecgwidget.h
-    ├── ledlights.cpp
-    ├── ledlights.h
-    ├── ledwidget.cpp
-    ├── ledwidget.h
-    ├── main.cpp
-    ├── mainwindow.cpp
-    ├── mainwindow.h
-    ├── mainwindow.ui
-    ├── person.cpp
-    ├── person.h
-    ├── realtimecprfeedback.cpp
-    ├── realtimecprfeedback.h
-    ├── selftest.cpp
-    ├── selftest.h
-PLUS_DV_FR_AHA_push_HR-scaled.jpg
-README.md
-progressReport.txt
+- FinalProject/
+    - FinalProject.pro
+    - FinalProject.pro.user
+    - audio.cpp
+    - audio.h
+    - battery.cpp
+    - battery.h
+    - data.cpp
+    - data.h
+    - display.cpp
+    - display.h
+    - ecgwidget.cpp
+    - ecgwidget.h
+    - ledlights.cpp
+    - ledlights.h
+    - ledwidget.cpp
+    - ledwidget.h
+    - main.cpp
+    - mainwindow.cpp
+    - mainwindow.h
+    - mainwindow.ui
+    - person.cpp
+    - person.h
+    - realtimecprfeedback.cpp
+    - realtimecprfeedback.h
+    - selftest.cpp
+    - selftest.h
+- PLUS_DV_FR_AHA_push_HR-scaled.jpg
+- README.md
+- progressReport.txt
 
